@@ -10,6 +10,11 @@ from .models import *
 from .settings import *
 
 
+class CatchmentAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Catchment, CatchmentAdmin)
+
+
 class CountryAdmin(admin.ModelAdmin):
     """
     ModelAdmin for Country.
@@ -22,6 +27,7 @@ class CountryAdmin(admin.ModelAdmin):
         'continent',
         'tld',
         'phone',
+        'catchment',
     )
     search_fields = (
         'name',
@@ -32,6 +38,7 @@ class CountryAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'continent',
+        'catchment',
     )
     form = CountryForm
 admin.site.register(Country, CountryAdmin)

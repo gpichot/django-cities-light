@@ -19,7 +19,7 @@ import autoslug
 from .settings import *
 
 
-__all__ = ['Country', 'Region', 'City', 'CONTINENT_CHOICES', 'to_search',
+__all__ = ['Catchment', 'Country', 'Region', 'City', 'CONTINENT_CHOICES', 'to_search',
     'to_ascii']
 
 ALPHA_REGEXP = re.compile('[\W_]+', re.UNICODE)
@@ -98,12 +98,20 @@ class Base(models.Model):
         return self.name
 
 
+class Catchment(Base):
+    name = models.CharField(max_length=200, unique=True)
+
+    class Meta(Base.Meta):
+        verbose_name_plural = _('catchments')
+
+
 class Country(Base):
     """
     Country model.
     """
 
     name = models.CharField(max_length=200, unique=True)
+    catchment = models.ForeignKey(Catchment, null=True)
 
     code2 = models.CharField(max_length=2, null=True, blank=True, unique=True)
     code3 = models.CharField(max_length=3, null=True, blank=True, unique=True)
